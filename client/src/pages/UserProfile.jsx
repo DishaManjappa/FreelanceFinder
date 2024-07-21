@@ -73,7 +73,7 @@ const UserForm = ({ open, setOpen }) => {
                           placeholder='James'
                           type='text'
                           register={register("firstName", {
-                            required: "First Name is required",
+                            required: "First Name IS required",
                           })}
                           error={
                             errors.firstName ? errors.firstName?.message : ""

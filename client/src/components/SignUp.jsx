@@ -3,6 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import axios from 'axios';
 import TextInput from "./TextInput";
 import CustomButton from "./CustomButton";
 
@@ -12,8 +13,9 @@ const SignUp = ({ open, setOpen }) => {
 
   const [isRegister, setIsRegister] = useState(true);
   const [accountType, setAccountType] = useState("seeker");
-
   const [errMsg, setErrMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -23,11 +25,29 @@ const SignUp = ({ open, setOpen }) => {
   } = useForm({
     mode: "onChange",
   });
+
   let from = location.state?.from?.pathname || "/";
 
-  const closeModal = () => setOpen(false);
+  const closeModal = () => {
+    setOpen(false);
+    setSuccessMsg("");
+    setErrMsg("");
+  };
 
-  const onSubmit = () => {};
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post('http://localhost:8800/api-v1/auth/register', data);
+      console.log(response.data);
+      setSuccessMsg("Account created successfully!");
+      setErrMsg("");
+      // Clear form fields
+      reset();
+    } catch (error) {
+      console.error('Error:', error.response.data);
+      setErrMsg(error.response.data.message || 'Something went wrong');
+      setSuccessMsg("");
+    }
+  };
 
   return (
     <>
@@ -121,7 +141,7 @@ const SignUp = ({ open, setOpen }) => {
                             placeholder={
                               accountType === "seeker"
                                 ? "eg. James"
-                                : "Comapy name"
+                                : "Company name"
                             }
                             type='text'
                             register={register(
@@ -190,8 +210,8 @@ const SignUp = ({ open, setOpen }) => {
                               validate: (value) => {
                                 const { password } = getValues();
 
-                                if (password != value) {
-                                  return "Passwords do no match";
+                                if (password !== value) {
+                                  return "Passwords do not match";
                                 }
                               },
                             })}
@@ -215,6 +235,15 @@ const SignUp = ({ open, setOpen }) => {
                       </span>
                     )}
 
+                    {successMsg && (
+                      <span
+                        role='alert'
+                        className='text-sm text-green-500 mt-0.5'
+                      >
+                        {successMsg}
+                      </span>
+                    )}
+
                     <div className='mt-2'>
                       <CustomButton
                         type='submit'
@@ -227,8 +256,8 @@ const SignUp = ({ open, setOpen }) => {
                   <div className='mt-4'>
                     <p className='text-sm text-gray-700'>
                       {isRegister
-                        ? "Already has an account?"
-                        : "Do not have an account"}
+                        ? "Already have an account?"
+                        : "Do not have an account?"}
 
                       <span
                         className='text-sm text-blue-600 ml-2 hover:text-blue-700 hover:font-semibold cursor-pointer'

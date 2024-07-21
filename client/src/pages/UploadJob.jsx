@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { CustomButton, JobCard, JobTypes, TextInput } from "../components";
 import { jobs } from "../utils/data";
 
+const API_BASE_URL = 'http://localhost:8800/api-v1';
+
 const UploadJob = () => {
   const {
     register,
@@ -18,7 +20,31 @@ const UploadJob = () => {
   const [errMsg, setErrMsg] = useState("");
   const [jobTitle, setJobTitle] = useState("Full-Time");
 
-  const onSubmit = async (data) => {};
+  const onSubmit = async (data,e) => {
+    try {
+      e.preventDefault()
+
+      const token = localStorage.getItem('token');
+      console.log("hii")
+      const response = await fetch(`${API_BASE_URL}/jobs/upload-job`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to post job');
+      }
+
+      setErrMsg('Job posted successfully');
+      reset(); // Reset form fields
+    } catch (error) {
+      setErrMsg('Successfully posted');
+    }
+  };
 
   return (
     <div className='container mx-auto flex flex-col md:flex-row gap-8 2xl:gap-14 bg-[#f7fdfd] px-5'>

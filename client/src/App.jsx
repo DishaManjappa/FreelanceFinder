@@ -9,6 +9,7 @@ import {
   FindJobs,
   JobDetail,
   UploadJob,
+  SignIn,
   UserProfile,
 } from "./pages";
 import { useSelector } from "react-redux";
@@ -51,10 +52,13 @@ function App() {
           <Route path={"/company-profile/:id"} element={<CompanyProfile />} />
           <Route path={"/upload-job"} element={<UploadJob />} />
           <Route path={"/job-detail/:id"} element={<JobDetail />} />
+          <Route path={'/sign-in'} element={<SignIn />}/>
+          
         </Route>
 
         <Route path='/about-us' element={<About />} />
-        <Route path='/user-auth' element={<AuthPage />} />
+        <Route path='/user-auth' element={<SignIn />} />
+        
       </Routes>
       {user && <Footer />}
     </main>

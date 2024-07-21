@@ -3,13 +3,14 @@ import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
 import bodyParser from "body-parser";
-
 import xss from "xss-clean";
 import mongoSanitize from "express-mongo-sanitize";
-
 import dbConnection from "./dbConfig/dbConnection.js";
 import router from "./routes/index.js";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
+
+
+
 
 dotenv.config();
 
@@ -21,7 +22,12 @@ const PORT = process.env.PORT || 8800;
 dbConnection();
 
 // middlenames
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // Replace with your frontend's URL
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // Allow cookies
+}));
+
 app.use(xss());
 app.use(mongoSanitize());
 app.use(bodyParser.json());
@@ -32,6 +38,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
 app.use(router);
+
 
 //error middleware
 app.use(errorMiddleware);

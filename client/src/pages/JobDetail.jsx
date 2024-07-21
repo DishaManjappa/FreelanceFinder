@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { Linkedin } from "../assets";
-import moment from "moment";
+import React, { useEffect, useState } from "react";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import moment from "moment";
 import { jobs } from "../utils/data";
 import { CustomButton, JobCard } from "../components";
 
 const JobDetail = () => {
   const params = useParams();
+  const navigate = useNavigate();  // useNavigate hook for navigation
   const id = parseInt(params.id) - 1;
   const [job, setJob] = useState(jobs[0]);
   const [selected, setSelected] = useState("0");
@@ -16,6 +16,10 @@ const JobDetail = () => {
     setJob(jobs[id ?? 0]);
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [id]);
+
+  const handleApplyNow = () => {
+    navigate("/upload-job");  // Navigate to the upload job page
+  };
 
   return (
     <div className='container mx-auto'>
@@ -107,7 +111,7 @@ const JobDetail = () => {
           <div className='my-6'>
             {selected === "0" ? (
               <>
-                <p className='text-xl font-semibold'>Job Decsription</p>
+                <p className='text-xl font-semibold'>Job Description</p>
 
                 <span className='text-base'>{job?.detail[0]?.desc}</span>
 
@@ -140,13 +144,14 @@ const JobDetail = () => {
             <CustomButton
               title='Apply Now'
               containerStyles={`w-full flex items-center justify-center text-white bg-black py-3 px-5 outline-none rounded-full text-base`}
+              onClick={handleApplyNow}  // Add the onClick handler here
             />
           </div>
         </div>
 
         {/* RIGHT SIDE */}
         <div className='w-full md:w-1/3 2xl:w-2/4 p-5 mt-20 md:mt-0'>
-          <p className='text-gray-500 font-semibold'>Similar Job Post</p>
+          <p className='text-gray-500 font-semibold'>Similar Job Posts</p>
 
           <div className='w-full flex flex-wrap gap-4'>
             {jobs?.slice(0, 6).map((job, index) => (

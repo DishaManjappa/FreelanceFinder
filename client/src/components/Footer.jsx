@@ -51,7 +51,7 @@ const Footer = () => {
 
         <div className=''>
           <p className='container px-5 mx-auto text-white mt-2 '>
-            Subscribe to our Newsletter
+            
           </p>
 
           <div className='container mx-auto px-5 pt-6 pb-8 flex flex-wrap items-center justify-between '>
@@ -63,7 +63,7 @@ const Footer = () => {
               />
 
               <CustomButton
-                title='Subscribe'
+                title='Notifications'
                 containerStyles={
                   "block bg-[#001a36] text-white px-5 py-2.5 text-md rounded hover:bg-blue-800 focus:potline-none flex-col items-center mt-2"
                 }
@@ -91,19 +91,19 @@ const Footer = () => {
         <div className='bg-[#001a36]'>
           <div className='container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row'>
             <p className='text-gray-300 text-sm text-center sm:text-left'>
-              &copy; 2023 Job Finder —
+              
               <a
-                href='https://youtube.com/@CodeWaveWithAsante'
+                
                 className='text-[#1199e7] ml-1'
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                @CodeWave
+                
               </a>
             </p>
 
             <span className='sm:ml-auto sm:mt-0 mt-2 sm:w-auto w-full sm:text-left text-center text-gray-300 text-sm'>
-              Designed by CodeWave
+              Designed by VIT students
             </span>
           </div>
         </div>

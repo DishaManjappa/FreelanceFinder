@@ -13,11 +13,13 @@ const router = express.Router();
 // POST JOB
 router.post("/upload-job", userAuth, createJob);
 
-// IPDATE JOB
+// UPDATE JOB
 router.put("/update-job/:jobId", userAuth, updateJob);
 
-// GET JOB POST
+// GET JOB POSTS
 router.get("/find-jobs", getJobPosts);
+
+// GET JOB DETAIL
 router.get("/get-job-detail/:id", getJobById);
 
 // DELETE JOB POST
