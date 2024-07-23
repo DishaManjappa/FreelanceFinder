@@ -105,7 +105,7 @@ export const updateCompanyProfile = async (req, res, next) => {
     const id = req.body.user.userId;
 
     if (!mongoose.Types.ObjectId.isValid(id))
-      return res.status(404).send(`No Company with id: ${id}`);
+      return res.status(404).send(No Company with id: ${id});
 
     const updateCompany = {
       name,

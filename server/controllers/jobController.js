@@ -31,7 +31,7 @@ export const createJob = async (req, res, next) => {
     const id = req.body.user.userId;
 
     if (!mongoose.Types.ObjectId.isValid(id))
-     return res.status(404).send(`No Company with id: ${id}`);
+     return res.status(404).send(No Company with id: ${id});
 
     const jobPost = {
       jobTitle,
@@ -94,7 +94,7 @@ export const updateJob = async (req, res, next) => {
     const id = req.body.user.userId;
 
     if (!mongoose.Types.ObjectId.isValid(id))
-      return res.status(404).send(`No Company with id: ${id}`);
+      return res.status(404).send(No Company with id: ${id});
 
     const jobPost = {
       jobTitle,

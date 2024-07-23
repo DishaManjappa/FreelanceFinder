@@ -44,5 +44,5 @@ app.use(router);
 app.use(errorMiddleware);
 
 app.listen(PORT, () => {
-  console.log(`Dev Server running on port: ${PORT}`);
+  console.log(Dev Server running on port: ${PORT});
 });
